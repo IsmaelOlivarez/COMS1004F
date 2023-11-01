@@ -11,8 +11,8 @@ public class Drunkard{
 
     //Class Constructor
     public Drunkard(int avenue, int street) {
-        avenue = this.avenue;
-        street = this.street;
+        this.avenue = avenue;
+        this.street = street;
         sAvenue = avenue;
         sStreet = street;
     }
