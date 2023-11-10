@@ -1,4 +1,8 @@
 /*****************************************
+ * Ismael Olivarez
+ * io2235  
+ * Game class where the game plays and checks for legality
+ * additionally setting difficulty, turn, and number of marbles
  * A template for a Nim game
  ****************************************/ 
 import java.util.Random;
@@ -40,39 +44,66 @@ public class Game{
 
         System.out.println("There are " + marbles + " marbles in this game!\n");
 
+        /*
+         * The game is ongoing as long as there is more than one marble
+         * Once there is one marble, the game decides who is the loser/
+         * Who is the winner by whoever it was the last turn.
+         * turn = -1 means that the last turn was done by the human 
+         * before there was one marble left meaning that
+         * the computer lost. This works vice versa.
+         */
         while(marbles > 1){
+            //Human player first
             if(turn == 0){
+                //Player move
                 humanPlayer.move();
                 legalCheck();
                 marbles -= humanPlayer.getChoice();
                 humanAnnounce();
-                if(endGame()){
+
+                //Last turn Indicator
+                if(marbles==1){
                     turn = -1;
+                }
+                if(endGame()){
                     break;
                 }
 
-                computerPlayer.move(marbles, turn);
+                //Computer move
+                computerPlayer.move(marbles);
                 marbles -= computerPlayer.getChoice();
                 compAnnounce();
+                //Last turn indicator
+                if(marbles==1){
+                    turn = 2;
+                }
                 if(endGame()){
-                    turn = 1;
                     break;
                 }
+            //Computer goes first
             }else{
-                computerPlayer.move(marbles, turn);
+                //Computer move
+                computerPlayer.move(marbles);
                 marbles -= computerPlayer.getChoice();
                 compAnnounce();
+                //Last turn indicator
+                if(marbles==1){
+                    turn = 2;
+                }
                 if(endGame()){
-                    turn = 1;
                     break;
                 }
 
+                //Player move
                 humanPlayer.move();
                 legalCheck();
                 marbles -= humanPlayer.getChoice();
                 humanAnnounce();
-                if(endGame()){
+                //Last turn indicator
+                if(marbles==1){
                     turn = -1;
+                }
+                if(endGame()){
                     break;
                 }
             }
@@ -114,13 +145,10 @@ public class Game{
         if(marbles == 1 && turn == -1) { 
             System.out.println("Player has won the game!\n");
             return true;
-        }else if(marbles == 1 && turn == 1){
+        }else if(marbles == 1 && turn == 2){
             System.out.println("Computer has won the game!\n");
             return true;
         }
         return false;
     }
-
-
-
 }

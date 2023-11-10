@@ -1,4 +1,8 @@
 /*****************************************
+ * Ismael Olivarez
+ * io2235
+ * Human player class used to initialize the human
+ * player and allow for moveset.
  * A template for a Human Nim player
  ****************************************/ 
 import java.util.Scanner;

@@ -1,3 +1,11 @@
+/*
+ * Ismael Olivarez
+ * io2235  
+ * Zipcode class allows for translation of 
+ * zipcode to a codebar and vice versa...
+ * Does'nt allow for invalid inputs and will 
+ * terminate upon detection.
+ */
 public class Zipcode {
     private int code;
     private int checkDigits;
@@ -6,14 +14,20 @@ public class Zipcode {
     private boolean valid = true;
 
     //Class Constructors
+    //Constructing to get barcode from zipcode
     public Zipcode(int code){
         this.code = code;
     }
 
+    //Constructing to get the zipcode from barcode
     public Zipcode(String bar){
         this.bar = bar;
     }
 
+    /*
+     * Returns the barcode when inputted a Zipcode
+     * Using 
+     */
     public String getBarcode(){
         bar = bar + "|";
         for(int i = 4; i >= 0; i--){
@@ -29,7 +43,7 @@ public class Zipcode {
 
     public int getZIPcode(){
         //Checking for proper start--expecting '|'
-        if(!bar.substring(0,1).equals("|") || 
+        if(!bar.substring(0,1).equals("|")  ||
         !bar.substring(bar.length()-1,bar.length()).equals("|")){
             System.out.println("Improper start/End to Zipcode Bar!--Reformat" + 
             " your Barcode!");

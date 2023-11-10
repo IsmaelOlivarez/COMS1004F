@@ -1,4 +1,7 @@
 /*****************************************
+ * Ismael Olivarez
+ * io2235
+ * Computer class, setting up difficulty an the different modes
  * A template for a computer Nim player
  ****************************************/ 
 import java.util.Random;
@@ -14,7 +17,7 @@ public class Computer{
         choice = -1;
     }
 
-    public void move(int marblesLeft, int turn){
+    public void move(int marblesLeft){
         /*
          * Checking for difficulty. If difficulty is 'stupid', the computer
          * will do the same move no matter what, for it is in stupid
@@ -26,7 +29,7 @@ public class Computer{
         if(mode == 1){
             //Stupid mode no matter the turn || Bound to lose (if player allows)
             choice = gen.nextInt(marblesLeft/2 ) + 1;
-        }else if (turn == 0){
+        }else {
             //Smart mode on second turn
             /*
              * Deciding whether or not it can even TRY to win
@@ -41,21 +44,11 @@ public class Computer{
                 choice = marblesLeft - ((int)Math.pow(2, 
                         Math.floor(Math.log(marblesLeft)/Math.log(2))) - 1);
             }
-        }else if(turn == 1){ //Smart mode first turn
-            //Checking for the starting pile to be a power of two...
-            if(marblesLeft == (int)Math.pow(2,
-            Math.ceil(Math.log(marblesLeft)/Math.log(2))) - 1){
-            choice = gen.nextInt(marblesLeft/2) + 1;
-        }else{
-            choice = marblesLeft - ((int)Math.pow(2, 
-                    Math.floor(Math.log(marblesLeft)/Math.log(2))) - 1);
         }
 
-        }
-        
     }
-    
-    
+
+    //Returns the choice of the computer (marbles)
     public int getChoice(){
         return choice;
     }
