@@ -26,8 +26,7 @@ public class Game{
         turn = gen.nextInt(2);
 
         //Marbles
-        marbles = 63;
-        //marbles = gen.nextInt(91) + 10;
+        marbles = gen.nextInt(91) + 10;
         
     }
      
@@ -48,6 +47,7 @@ public class Game{
                 marbles -= humanPlayer.getChoice();
                 humanAnnounce();
                 if(endGame()){
+                    turn = -1;
                     break;
                 }
 
@@ -55,6 +55,7 @@ public class Game{
                 marbles -= computerPlayer.getChoice();
                 compAnnounce();
                 if(endGame()){
+                    turn = 1;
                     break;
                 }
             }else{
@@ -62,6 +63,7 @@ public class Game{
                 marbles -= computerPlayer.getChoice();
                 compAnnounce();
                 if(endGame()){
+                    turn = 1;
                     break;
                 }
 
@@ -70,6 +72,7 @@ public class Game{
                 marbles -= humanPlayer.getChoice();
                 humanAnnounce();
                 if(endGame()){
+                    turn = -1;
                     break;
                 }
             }
@@ -108,7 +111,7 @@ public class Game{
     //If so, prompts the winner and returns true so that the 
     //while loop can be 'break'ed, thus ending the game.
     public boolean endGame(){
-        if(marbles == 1 && turn == 0) { 
+        if(marbles == 1 && turn == -1) { 
             System.out.println("Player has won the game!\n");
             return true;
         }else if(marbles == 1 && turn == 1){
