@@ -1,12 +1,14 @@
 
 // add your own banner here
 
+import java.util.ArrayList;
+
 public class Player {
 	
 		
 	private ArrayList<Card> hand; // the player's cards
 	private double bankroll;
-        private double bet;
+    private double bet;
 
 	// you may choose to use more instance variables
 		

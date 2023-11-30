@@ -8,7 +8,7 @@ public class Game {
 	// you'll probably need some more here
 	
 	
-	public Game(String[] testHand){
+	public Game(int level){
 		// This constructor is to help test your code.
 		// use the contents of testHand to
 		// make a hand for the player

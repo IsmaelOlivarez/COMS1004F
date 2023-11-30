@@ -1,5 +1,5 @@
 
-public class PokerTest
+public class PokerTest{
 
     //this class must remain unchanged
     //your code must work with this test class
