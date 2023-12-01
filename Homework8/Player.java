@@ -39,7 +39,7 @@ public class Player {
 
     public void winnings(double odds){
         //	adjust bankroll if player wins
-        this.bankroll += odds;
+        this.bankroll += bet * odds;
     }
 
      public double getBankroll(){

@@ -77,7 +77,7 @@ public class Game {
 					if(tempResponse == 9){
 						selection = false;
 					}else if(tempResponse != 9 && tempResponse > p.getHand().size()){
-						System.out.println("Please select vald index!");
+						System.out.println("Please select valid index!");
 					}else{
 						p.removeCard(p.getHand().get(tempResponse-1));
 						cardOwe++;
@@ -107,6 +107,23 @@ public class Game {
 		// as input and then determine what evaluates to and
 		// return that as a String
 		//Checking for Pair
+		if(four(hand)==1){ //Four
+			p.winnings(25);
+		}else if(pairs(hand)==1&&triple(hand)==1){ //Full house
+			p.winnings(6);
+		}else if(triple(hand)==1){
+			p.winnings(3);
+		}else if(pairs(hand) == 1){ //One pair
+			p.winnings(1);
+		}else if(pairs(hand) == 2){ //Two pair
+			p.winnings(2);
+		}else if(straight(hand)==2 && flush(hand)==1){ //Royal Flush
+			p.winnings(250);
+		}else if(straight(hand)==1 && flush(hand)==1){ //Straight Flush
+			p.winnings(50);
+		}else if(flush(hand)==1){ // Flush
+			p.winnings(5);
+		}
 		
 	}
 
@@ -161,25 +178,42 @@ public class Game {
 
 	public int four(ArrayList<Card> hand){
 		for(int i = 0; i<2;i++){
-			if(hand.get(i).getRank()==hand.get(i+1).getRank()){
-				if(hand.get(i+1).getRank()==hand.get(i+2).getRank()){
-					if(hand.get(i+2).getRank()==hand.get(i+3).getRank()){
-						return 1;
-					}
-				}
+			if(hand.get(i).getRank()==hand.get(i+3).getRank()){
+				return 1;
 			}
 		}
 		return 0;
 	}
 
 	public int flush(ArrayList<Card> hand){
-		if(hand.get(0).getSuit()==hand.get(1).getSuit()==hand.get(2).getSuit()==hand.get(3).getSuit()==hand.get(4).getSuit()){
+		int suit = hand.get(0).getSuit();
+		if(suit==hand.get(1).getSuit()&&suit==hand.get(2).getSuit()
+		&&suit==hand.get(3).getSuit()&&suit==hand.get(4).getSuit()){
 				return 1;
 		}
 		return 0;
-		
 	}
 	
+	public int straight(ArrayList<Card> hand){
+		if(pairs(hand) >= 1){
+			return 0;
+		}else if(hand.get(4).getRank()-hand.get(0).getRank() == 4){
+			return 1;
+		}else if(hand.get(0).getRank() == 1&&hand.get(3).getRank()==4
+		&&hand.get(4).getSuit()==13){
+			return 1;
+		}else if(hand.get(0).getRank() == 1&&hand.get(2).getRank()==3&&
+		hand.get(3).getRank()==12&&hand.get(4).getSuit()==13){
+			return 1;
+		}else if(hand.get(0).getRank() == 1&&hand.get(1).getRank()==2&&
+		hand.get(2).getRank()==11&&hand.get(4).getSuit()==13){
+			return 1;
+		}else if(hand.get(0).getRank()==1&&hand.get(1).getRank()==10
+		&&hand.get(4).getRank()==13){
+			return 2;
+		}
+		return 0;
+	}
 	
 	// you will likely want many more methods here
 	// per discussion in class
