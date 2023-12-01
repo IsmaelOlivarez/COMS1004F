@@ -50,6 +50,7 @@ public class Game {
 	public void play(){
 		// this method should play the game	
 		while(active && p.getBankroll() > 0){
+			
 			int cardOwe = 0;
 			System.out.println("How many coins would you like to bet?");
 
@@ -94,11 +95,14 @@ public class Game {
 			p.displayHand();
 
 			System.out.println(checkHand(p.getHand()));
+			giveBankroll();
 
 			cards = new Deck();
-			p = new Player();
 			endGame();
 
+		}
+		if(p.getBankroll() < 0){
+			System.out.println("Thank you for playing! You are now in debt to us.");
 		}
 	}
 	
@@ -107,23 +111,35 @@ public class Game {
 		// as input and then determine what evaluates to and
 		// return that as a String
 		//Checking for Pair
-		if(four(hand)==1){ //Four
-			p.winnings(25);
-		}else if(pairs(hand)==1&&triple(hand)==1){ //Full house
-			p.winnings(6);
-		}else if(triple(hand)==1){
-			p.winnings(3);
-		}else if(pairs(hand) == 1){ //One pair
-			p.winnings(1);
-		}else if(pairs(hand) == 2){ //Two pair
-			p.winnings(2);
-		}else if(straight(hand)==2 && flush(hand)==1){ //Royal Flush
+		if(straight(hand)==2 && flush(hand)==1){ //Royal Flush
 			p.winnings(250);
+			return "Royal Flush!";
 		}else if(straight(hand)==1 && flush(hand)==1){ //Straight Flush
 			p.winnings(50);
+			return "Straight Flush!";
+		}else if(four(hand)==1){ //Four
+			p.winnings(25);
+			return "Four of a kind!";
+		}else if(pairs(hand)==35&&triple(hand)==1){ //Full house
+			p.winnings(6);
+			return "Full House!";
 		}else if(flush(hand)==1){ // Flush
 			p.winnings(5);
+			return "Flush!";
+		}else if(straight(hand)==1||straight(hand)==2){ //Straight
+			p.winnings(4);
+			return "Straight!";
+		}else if(triple(hand)==1){ //Three
+			p.winnings(3);
+			return "Three of a kind!";
+		}else if(pairs(hand) == 2){ //Two pair
+			p.winnings(2);
+			return "Two pairs!";
+		}else if(pairs(hand) == 1){ //One pair
+			p.winnings(1);
+			return "One pair";
 		}
+		return "Nothing... tough luck.";
 		
 	}
 
@@ -139,17 +155,20 @@ public class Game {
 		if(response.nextInt()==0){
 			active = false;
 		}
+		for(int i = 0; i < 5; i++){
+			p.removeCard(p.getHand().get(0));
+		}
+		for(int i = 0; i < 5; i++){
+			p.addCard(cards.deal());
+		}
+
 	}
 
 	public int pairs(ArrayList<Card> hand){
-		int pairNum=0;
+		int pairNum = 0;
 		for(int i = 0; i < 5; i++){
 			if(i == 4){
 				return pairNum;
-			}else if(hand.get(i).getRank()==hand.get(i+1).getRank()
-					&&hand.get(i+1).getRank()!=hand.get(i+2).getRank()&&i!=2){
-				i++;
-				pairNum++;
 			}else if(hand.get(i).getRank()==hand.get(i+1).getRank()){
 				i++;
 				pairNum++;
@@ -159,18 +178,9 @@ public class Game {
 	}
 
 	public int triple(ArrayList<Card> hand){
-		for(int i = 0; i<5; i++){
-			if(i == 3){
-				//
-			}else if(hand.get(i).getRank()==hand.get(i+1).getRank()){
-				if(hand.get(i).getRank()==hand.get(i+2).getRank()){
-					return 1;
-				}
-				i++;
-				if(i==2){
-					i=4;
-					return 0;
-				}
+		for(int i = 0; i<3; i++){
+			if(hand.get(i).getRank()==hand.get(i+2).getRank()){
+				return 1;
 			}
 		}
 		return 0;
