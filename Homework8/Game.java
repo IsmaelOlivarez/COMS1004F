@@ -25,9 +25,30 @@ public class Game {
 		// s = spades
 		// 1-13 correspond to ace-king
 		// example: s1 = ace of spades
-		// example: testhand = {s1, s13, s12, s11, s10} = royal flush
-		
-		
+		// example: testhand = {s1 s13 s12 s11 s10} = royal flush
+		/*
+		 * All functionality is working--all of the different checks are all operational.
+		 */
+
+		p = new Player();
+		for(int i = 0; i < 5; i++){
+			char suit = testHand[i].charAt(0);
+			int s = 0;
+			int rank = Integer.parseInt(testHand[i].substring(1));
+			if(suit == 'c'){
+				s = 1;
+			}else if(suit == 'd'){
+				s = 2;
+			}else if(suit == 'h'){
+				s = 3;
+			}else if(suit == 's'){
+				s = 4;
+			}
+			Card cards = new Card(s, rank);
+			p.addCard(cards);
+		}
+		p.displayHand();
+		System.out.println(checkHand(p.getHand()));
 	}
 	
 	public Game(){
@@ -120,7 +141,7 @@ public class Game {
 		}else if(four(hand)==1){ //Four
 			p.winnings(25);
 			return "Four of a kind!";
-		}else if(pairs(hand)==35&&triple(hand)==1){ //Full house
+		}else if(pairs(hand)==2&&triple(hand)==1){ //Full house
 			p.winnings(6);
 			return "Full House!";
 		}else if(flush(hand)==1){ // Flush
@@ -131,6 +152,7 @@ public class Game {
 			return "Straight!";
 		}else if(triple(hand)==1){ //Three
 			p.winnings(3);
+			System.out.println(pairs(hand));
 			return "Three of a kind!";
 		}else if(pairs(hand) == 2){ //Two pair
 			p.winnings(2);
