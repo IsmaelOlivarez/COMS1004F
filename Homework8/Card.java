@@ -30,17 +30,35 @@ public class Card implements Comparable<Card>{
 	
 	public String toString(){
 		// use this method to easily print a Card object
-		String rankString;
+		String rankString = "";
+		String suitString = "";
+
 		if(rank == 1){
 			rankString = "A";
 		}else if(rank > 1 && rank < 11){
-			rankString = suit + "";
+			rankString = rank + "";
 		}else if(rank == 11){
-			
+			rankString = "J";
+		}else if(rank == 12){
+			rankString = "Q";
+		}else {
+			rankString = "K";
 		}
-	}
-	// add some more methods here if needed
 
+		if(suit == 1){
+			suitString = "c";
+		}else if(suit == 2){
+			suitString = "d";
+		}else if(suit == 3){
+			suitString = "h";
+		}else{
+			suitString = "s";
+		}
+		
+		return rankString + suitString;
+	}
+
+	// add some more methods here if needed
 	public int getRank(){
 		return rank;
 	}
@@ -48,5 +66,7 @@ public class Card implements Comparable<Card>{
 	public int getSuit(){
 		return suit;
 	}
+
+	
 
 }

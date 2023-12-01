@@ -2,24 +2,29 @@
 // add your own banner here
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class Deck {
 	
-	private ArrayList<Card> cards = new ArrayList<Card>();
-	private int top; // the index of the top of the deck
+	private Card[] cards;
+	private int top;// the index of the top of the deck
 
 	// add more instance variables if needed
 	
 	public Deck(){
 		// make a 52 card deck here
 		top = 0;
+		cards = new Card[52];
+		int count = 0;
 		for(int r = 1; r <=13; r++){
 			for(int s = 1; s <= 4;s++){
-				Card newCard = new Card(s,r);
-				cards.add(newCard);
+				cards[count] = new Card(s,r);
+				count++;
 			}
 		}
+		count = 0;
+		shuffle();
 	}
 	
 	public void shuffle(){
@@ -28,16 +33,22 @@ public class Deck {
 		*Java where it takes in some sort of list and spits it back out
 		*But randomized. 
 		*/
-		Collections.shuffle(cards);
+		ArrayList<Card> tempList = new ArrayList<>(Arrays.asList(cards));
+		Collections.shuffle(tempList);
+		for(int i = 0; i < 52; i++){
+			cards[i] = tempList.get(i);
+		}
+		//cards = Card[]tempList.toArray();
+		
 	}
 	
 	public Card deal(){
 		// deal the top card in the deck
 		if(top>51){
 			top++;
-			return cards.get(52);
+			return cards[51];
 		}else{
-			Card deal = cards.get(top);
+			Card deal = cards[top];
 			top++;
 			return deal;
 		}
